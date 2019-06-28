@@ -1,0 +1,27 @@
+{
+  "name": "mongoose-mimic",
+  "version": "0.1.0",
+  "description": "mongoose-mimic is a small (but powerful) Node.js library to generate test data for mongoose using only the schema definition",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Genially S.L. (https://www.genial.ly)",
+  "license": "MIT",
+  "dependencies": {
+    "faker": "4.1.0",
+    "flat": "4.1.0",
+    "mongoose": "5.6.1",
+    "uuid": "3.3.2"
+  },
+  "devDependencies": {
+    "jest": "24.8.0",
+    "jest-extended": "0.11.1"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ],
+    "testEnvironment": "node"
+  }
+}
