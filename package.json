@@ -2,7 +2,7 @@
   "name": "mongoose-mimic",
   "version": "0.1.0",
   "description": "mongoose-mimic is a small (but powerful) Node.js library to generate test data for mongoose using only the schema definition",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest"
   },

@@ -1,4 +1,4 @@
-const createCustomGenerator = require('../lib/createCustomGenerator');
+const createCustomGenerator = require('../src/createCustomGenerator');
 const { validateEmail } = require('./utils');
 
 describe('createCustomGenerator', () => {
