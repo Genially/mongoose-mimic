@@ -22,6 +22,9 @@ describe('mongoose-mimic', () => {
       birth_date: {
         type: Date
       },
+      phones: {
+        type: [String]
+      },
       gender: {
         type: String,
         enum: genderValues
@@ -56,29 +59,43 @@ describe('mongoose-mimic', () => {
     model = mongoose.model('Student', schemaDefinition);
   });
 
+  describe('mongoose model', () => {
+    it('should generate random model', done => {
+      const randomObject = mimic(model);
+
+      expect(randomObject).not.toBeUndefined();
+      expect(randomObject.name).toBeString();
+      expect(randomObject.email).toBeString();
+      expect(randomObject.detail.main_info).toBeString();
+      expect(randomObject.detail.some_info).toBeString();
+      expect(randomObject.detail.none_match).toBeString();
+      expect(randomObject.birth_date).toBeDate();
+      expect(randomObject.created_at).toBeDate();
+      expect(genderValues.indexOf(randomObject.gender)).not.toBe(-1);
+      expect(randomObject.data).toBeObject();
+      expect(randomObject.results).toBeArray();
+      expect(randomObject.results[0]).toContainKey('score');
+      expect(randomObject.results[1]).toContainKey('course');
+      expect(randomObject.is_student).toBeBoolean();
+      expect(randomObject.phones).toBeArray();
+      expect(randomObject.parent).toBeString();
+      expect(isObjectId(randomObject.parent)).toBeTrue();
+      expect(randomObject._id).toBeString();
+      expect(isObjectId(randomObject._id)).toBeTrue();
+      expect(randomObject.__v).toBeNumber();
+
+      done();
+    });
+  });
+
   describe('mongoose model with ignored fields', () => {
     it('should generate random model without ignored fields', done => {
       const ignoredFields = ['_id', 'created_at', '__v', /detail.*_info/];
 
       const randomObject = mimic(model, {
-        ignore: ignoredFields,
-        returnDate: true
+        ignore: ignoredFields
       });
 
-      expect(randomObject).not.toBeUndefined();
-      expect(randomObject.name).toBeString();
-      expect(randomObject.email).toBeString();
-      expect(randomObject.detail.none_match).toBeString();
-      expect(randomObject.birth_date).toBeDate();
-      expect(genderValues.indexOf(randomObject.gender)).not.toBe(-1);
-      expect(randomObject.data).toBeObject();
-      expect(randomObject.results).toBeArray();
-      expect(randomObject.results[0]).toContainKey('score');
-      expect(randomObject.is_student).toBeBoolean();
-      expect(randomObject.parent).toBeString();
-      expect(isObjectId(randomObject.parent)).toBeTrue();
-
-      // Check ignore fields
       expect(randomObject.created_at).toBeUndefined();
       expect(randomObject._id).toBeUndefined();
       expect(randomObject.__v).toBeUndefined();
