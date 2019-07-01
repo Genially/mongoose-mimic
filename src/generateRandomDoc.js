@@ -60,7 +60,7 @@ const selectRandomEnum = enumDefinition => {
  * @param {object} arrayDefinition the array definition
  * @param {object} opts the configuration options
  * @returns {object[]}
- * an array that containts random documents
+ * an array that contains random documents
  */
 const generateRandomArray = (arrayDefinition, opts) => {
   const array = [];
