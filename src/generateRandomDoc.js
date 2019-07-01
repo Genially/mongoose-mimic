@@ -55,6 +55,33 @@ const selectRandomEnum = enumDefinition => {
 };
 
 /**
+ * Generates a random number of documents that meet the given array definition
+ *
+ * @param {*} arrayDefinition the array definition
+ * @param {*} opts the configuration options
+ * @returns {object[]}
+ * an array that containts random documents
+ */
+const generateRandomArray = (arrayDefinition, opts) => {
+  const array = [];
+  const arrayLength = Math.floor(Math.random() * 15 + 1);
+
+  for (let i = 0; i < arrayLength; i++) {
+    if (arrayDefinition.isPathDef) {
+      /* Handle arrays with primitives */
+      array.push(
+        generateRandomDoc({ generate: arrayDefinition }, opts).generate
+      );
+    } else {
+      /* Handle arrays with defined objects */
+      array.push(generateRandomDoc(arrayDefinition, opts));
+    }
+  }
+
+  return array;
+};
+
+/**
  * Generates a document with random values (or custom values), as a spread
  *
  * @param {object} paths the schema paths definitions
@@ -101,22 +128,10 @@ const generateRandomDoc = (
     }
 
     if (type === 'array') {
-      generatedDoc[field] = [];
-      let arrayLength = Math.floor(Math.random() * 15 + 1);
-
-      for (let i = 0; i < arrayLength; i++) {
-        let arrayDef = definition.arrayDefinition;
-        if (arrayDef.isPathDef) {
-          generatedDoc[field].push(
-            generateRandomDoc({ generate: definition.arrayDefinition }, opts)
-              .generate
-          ); /* Handle arrays with primitives */
-        } else {
-          generatedDoc[field].push(
-            generateRandomDoc(definition.arrayDefinition, opts)
-          ); /* Handle arrays with defined objects */
-        }
-      }
+      generatedDoc[field] = generateRandomArray(
+        definition.arrayDefinition,
+        opts
+      );
     }
   }
 
