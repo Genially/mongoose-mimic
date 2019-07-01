@@ -60,7 +60,7 @@ describe('mongoose-mimic', () => {
   });
 
   describe('mongoose model', () => {
-    it('should generate random model', done => {
+    it('should generate random document', done => {
       const randomObject = mimic(model);
 
       expect(randomObject).not.toBeUndefined();
@@ -89,7 +89,7 @@ describe('mongoose-mimic', () => {
   });
 
   describe('mongoose model with ignored fields', () => {
-    it('should generate random model without ignored fields', done => {
+    it('should generate random document without ignored fields', done => {
       const ignoredFields = ['_id', 'created_at', '__v', /detail.*_info/];
 
       const randomObject = mimic(model, {
@@ -107,7 +107,7 @@ describe('mongoose-mimic', () => {
   });
 
   describe('mongoose model with custom fields', () => {
-    it('should generate random model with custom fields', done => {
+    it('should generate random document with custom fields', done => {
       const randomObject = mimic(model, {
         custom: {
           name: { type: 'internet.email' },
@@ -133,7 +133,7 @@ describe('mongoose-mimic', () => {
   });
 
   describe('mongoose model with returnData option to false', () => {
-    it('should generate random model with date as string', done => {
+    it('should generate random document with date as string', done => {
       const randomObject = mimic(model, { returnDate: false });
       expect(randomObject.birth_date).toBeString();
       expect(randomObject.created_at).toBeString();
