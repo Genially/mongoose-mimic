@@ -108,7 +108,8 @@ const generateRandomDoc = (paths, opts = {}) => {
         if (arrayDef.isPathDef) {
           generatedDoc[field].push(
             generateRandomDoc({ generate: definition.arrayDefinition }, opts)
-          ).generate; /* Handle arrays with primitives */
+              .generate
+          ); /* Handle arrays with primitives */
         } else {
           generatedDoc[field].push(
             generateRandomDoc(definition.arrayDefinition, opts)
