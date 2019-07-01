@@ -57,8 +57,8 @@ const selectRandomEnum = enumDefinition => {
 /**
  * Generates a document with random values (or custom values), as a spread
  *
- * @param {*} paths the schema paths definitions
- * @param {*} opts the configuration options
+ * @param {object} paths the schema paths definitions
+ * @param {object} opts the configuration options
  * @returns {object}
  * a random document, as a spread
  */
