@@ -62,9 +62,10 @@ const selectRandomEnum = enumDefinition => {
  * @returns {object}
  * a random document, as a spread
  */
-const generateRandomDoc = (paths, opts = {}) => {
-  opts.applyFilter = opts.applyFilter || true;
-  opts.returnDate = opts.returnDate || true;
+const generateRandomDoc = (
+  paths,
+  opts = { applyFilter: true, returnDate: true }
+) => {
   const customGenerators = createCustomGenerators(opts.custom);
 
   const generatedDoc = {};

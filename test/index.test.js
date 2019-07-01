@@ -131,4 +131,14 @@ describe('mongoose-mimic', () => {
       done();
     });
   });
+
+  describe('mongoose model with returnData option to false', () => {
+    it('should generate random model with date as string', done => {
+      const randomObject = mimic(model, { returnDate: false });
+      expect(randomObject.birth_date).toBeString();
+      expect(randomObject.created_at).toBeString();
+
+      done();
+    });
+  });
 });
