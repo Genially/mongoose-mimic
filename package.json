@@ -1,5 +1,6 @@
 {
-  "name": "mongoose-mimic",
+  "name": "@genially/mongoose-mimic",
+  "private": false,
   "version": "0.1.0",
   "description": "mongoose-mimic is a small (but powerful) Node.js library to generate test data for mongoose using only the schema definition",
   "main": "src/index.js",
