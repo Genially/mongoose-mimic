@@ -31,14 +31,14 @@ Generates mimetic object from `model`
         }
 ```
 
-|       Option       | Type    | Usage                                                                                                                                                                                            |
-| :----------------: | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|       ignore       | Array   | It can contains string paths or RegExp of fields to ignore during generation                                                                                                                     |
-|    applyFilter     | Boolean | Apply lowercase, uppercase, and trim filters on generated object if defined in the path                                                                                                          |
-|     returnDate     | Boolean | Weather to return dates as Date or String                                                                                                                                                        |
-|       custom       | Object  | Special generator for specified fields                                                                                                                                                           |
-| custom.field.value | Any     | Specific value to generate                                                                                                                                                                       |
-| custom.field.type  | String  | Data type to generate, in the format: "type.subtype". Examples: "internet.email" or "address.city". See [Faker.js](https://github.com/marak/Faker.js/) methods to know all supported data types. |
+|       Option       | Type    | Usage                                                                                                                                                                                           |
+| :----------------: | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|       ignore       | Array   | It can contains string paths or RegExp of fields to ignore during generation                                                                                                                    |
+|    applyFilter     | Boolean | Apply lowercase, uppercase, and trim filters on generated object if defined in the path                                                                                                         |
+|     returnDate     | Boolean | Weather to return dates as Date or String                                                                                                                                                       |
+|       custom       | Object  | Special generator for specified fields                                                                                                                                                          |
+| custom.field.value | Any     | Specific value to generate                                                                                                                                                                      |
+| custom.field.type  | String  | Data type to generate, in the format: "type.subtype". Examples: "internet.email" or "address.city". See [Faker.js](https://github.com/marak/Faker.js/) methods to know all supported data types |
 
 ---
 
