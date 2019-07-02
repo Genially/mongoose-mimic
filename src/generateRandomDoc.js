@@ -62,16 +62,16 @@ const selectRandomEnum = enumDefinition => {
  * @returns {object[]}
  * an array that contains random documents
  */
-const generateRandomArray = (arrayDefinition, opts) => {
+const generateRandomArray = (field, arrayDefinition, opts) => {
   const array = [];
   const arrayLength = Math.floor(Math.random() * 15 + 1);
 
   for (let i = 0; i < arrayLength; i++) {
     if (arrayDefinition.isPathDef) {
       /* Handle arrays with primitives */
-      array.push(
-        generateRandomDoc({ generate: arrayDefinition }, opts).generate
-      );
+      const paths = {};
+      paths[field] = arrayDefinition;
+      array.push(generateRandomDoc(paths, opts)[field]);
     } else {
       /* Handle arrays with defined objects */
       array.push(generateRandomDoc(arrayDefinition, opts));
@@ -108,6 +108,17 @@ const generateRandomDoc = (
       continue;
     }
 
+    let type = definition.type.toLowerCase();
+
+    if (type === 'array') {
+      generatedDoc[field] = generateRandomArray(
+        field,
+        definition.arrayDefinition,
+        opts
+      );
+      continue;
+    }
+
     let generateCustomValue = customGenerators[field];
     if (generateCustomValue) {
       generatedDoc[field] = generateCustomValue();
@@ -115,7 +126,6 @@ const generateRandomDoc = (
     }
 
     let generateRandomValue = createBasicGenerator(definition);
-    let type = definition.type.toLowerCase();
 
     if (generateRandomValue) {
       generatedDoc[field] = generateRandomValue();
@@ -125,13 +135,6 @@ const generateRandomDoc = (
       }
 
       continue;
-    }
-
-    if (type === 'array') {
-      generatedDoc[field] = generateRandomArray(
-        definition.arrayDefinition,
-        opts
-      );
     }
   }
 

@@ -91,7 +91,6 @@ describe('mongoose-mimic', () => {
   describe('mongoose model with ignored fields', () => {
     it('should generate random document without ignored fields', done => {
       const ignoredFields = ['_id', 'created_at', '__v', /detail.*_info/];
-
       const randomObject = mimic(model, {
         ignore: ignoredFields
       });
@@ -135,8 +134,22 @@ describe('mongoose-mimic', () => {
   describe('mongoose model with returnData option to false', () => {
     it('should generate random document with date as string', done => {
       const randomObject = mimic(model, { returnDate: false });
+
       expect(randomObject.birth_date).toBeString();
       expect(randomObject.created_at).toBeString();
+
+      done();
+    });
+  });
+
+  describe('mongoose model with custom array type', () => {
+    it('should generate random document with array whose content meets the array type', done => {
+      const randomObject = mimic(model, {
+        custom: { phones: { type: 'internet.email' } }
+      });
+
+      expect(randomObject.phones).toBeArray();
+      expect(validateEmail(randomObject.phones[0])).toBeTrue();
 
       done();
     });
