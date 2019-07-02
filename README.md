@@ -1,19 +1,22 @@
 # mongoose-mimic
 
-
 mongoose-mimic is a small (but powerful) Node.js library to generate test data for mongoose using only the schema definition
 
 ## Installation
 
-  - Latest release:
+- Latest release:
 
-        npm install @genially/mongoose-mimic
+      npm install @genially/mongoose-mimic
 
 ## Usage
+
 ### mimic(model, opts)
+
 Generates mimetic object from `model`
+
 - `model`: Mongoose schema object
 - `opts`: Generation options, where the options are in the following format:
+
 ```js
         {
           ignore: Array,
@@ -27,17 +30,20 @@ Generates mimetic object from `model`
           }
         }
 ```
-| Option | Type | Usage |
-| :------: | ------ | ------ |
-| ignore | Array | It can contains string paths or RegExp of fields to ignore during generation |
-| applyFilter | Boolean | Apply lowercase, uppercase, and trim filters on generated object if defined in the path |
-| returnDate | Boolean | Weather to return dates as Date or String |
-| custom | Object | Special generator for specified fields |
-| custom.field.value | Any | Specific value to generate |
-| custom.field.type | String | Type of data type to generate, in the format: "type.subtype". Examples: "internet.email" or "address.city". See [Faker.js](https://github.com/marak/Faker.js/) methods to know all supported data types.
-----------
+
+|       Option       | Type    | Usage                                                                                                                                                                                            |
+| :----------------: | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|       ignore       | Array   | It can contains string paths or RegExp of fields to ignore during generation                                                                                                                     |
+|    applyFilter     | Boolean | Apply lowercase, uppercase, and trim filters on generated object if defined in the path                                                                                                          |
+|     returnDate     | Boolean | Weather to return dates as Date or String                                                                                                                                                        |
+|       custom       | Object  | Special generator for specified fields                                                                                                                                                           |
+| custom.field.value | Any     | Specific value to generate                                                                                                                                                                       |
+| custom.field.type  | String  | Data type to generate, in the format: "type.subtype". Examples: "internet.email" or "address.city". See [Faker.js](https://github.com/marak/Faker.js/) methods to know all supported data types. |
+
+---
 
 ## Usage Example
+
 ```js
 const mongoose = require('mongoose');
 const mimic = require('@genially/mongoose-mimic');
@@ -194,8 +200,11 @@ console.log(randomObject);
     }
 }*/
 ```
+
 ## Testing
+
 To run the test cases use `npm test`
 
 #### License
+
 Licensed under MIT
