@@ -226,4 +226,4 @@ Other similar libraries to generate test data for Mongoose are:
 
 ## License
 
-Licensed under (MIT)[LICENSE]
+Licensed under [MIT](LICENSE)
