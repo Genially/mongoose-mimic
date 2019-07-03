@@ -1,18 +1,27 @@
 # mongoose-mimic
 
-mongoose-mimic is a small (but powerful) Node.js library to generate test data for mongoose using only the schema definition
+mongoose-mimic is a small (but powerful) Node.js library to generate test data for Mongoose using only the schema definition.
+
+## Features
+
+- Generate random values depending on primitive data types (string, number, boolean, date...)
+- Generate random values that meet constraints (uppercase, lowercase, max...)
+- Generate custom values for specific fields
+- Generate custom values that match non-primitive data types for specific fields (email, phone, address...)
+- Ignore specific fields
+- Generate dates as object or string
 
 ## Installation
 
-- Latest release:
-
-      npm install @genially/mongoose-mimic
+```
+npm install @genially/mongoose-mimic
+```
 
 ## Usage
 
 ### mimic(model, opts)
 
-Generates mimetic object from `model`
+Generates a mimetic document from `model`
 
 - `model`: Mongoose schema object
 - `opts`: Generation options, where the options are in the following format:
@@ -205,6 +214,16 @@ console.log(randomObject);
 
 To run the test cases use `npm test`
 
-#### License
+## Related libraries
 
-Licensed under MIT
+mongoose-mimic API is inspired by [mongoose-dummy](https://github.com/thedgmbh/mongoose-dummy), which provides a more limited capability to customize generated values.
+
+Other similar libraries to generate test data for Mongoose are:
+
+- [mongoose-faker](https://github.com/tnsengimana/mongoose-faker)
+- [@lykmapipo/mongoose-faker](https://github.com/lykmapipo/mongoose-faker)
+- [Fakegoose](https://github.com/andrejewski/fakegoose)
+
+## License
+
+Licensed under (MIT)[LICENSE]
