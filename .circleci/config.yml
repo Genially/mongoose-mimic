@@ -1,0 +1,78 @@
+version: 2
+
+jobs:
+  tests:
+    docker:
+      - image: circleci/node:8.11.3
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          working_directory: ~/project
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          working_directory: ~/project
+          command: npm run test
+
+  release:
+    docker:
+      - image: circleci/node:8.11.3
+
+    steps:
+      - checkout
+      - run:
+          working_directory: ~/project
+          command: npm install
+      - run:
+          working_directory: ~/project
+          command: npx semantic-release
+
+  publish:
+    docker:
+      - image: circleci/node:8.11.3
+
+    steps:
+      - checkout
+      - run:
+          name: Get last code version with tags
+          command: git pull origin master
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/project/.npmrc
+      - run:
+          name: Create build
+          working_directory: ~/project
+          command: npm run build
+      - run:
+          name: Publish package
+          working_directory: ~/project
+          command: npm publish
+
+workflows:
+  version: 2
+  test_and_release:
+    jobs:
+      - tests
+      - release:
+          requires:
+            - tests
+          filters:
+            branches:
+              only:
+                - master
+      - publish:
+          requires:
+            - release
+          filters:
+            branches:
+              only:
+                - master
