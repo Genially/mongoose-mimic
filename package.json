@@ -1,13 +1,38 @@
 {
   "name": "@genially/mongoose-mimic",
+  "description": "mongoose-mimic is a small (but powerful) Node.js library to generate test data for mongoose using only the schema definition",
   "private": false,
   "version": "0.1.0",
-  "description": "mongoose-mimic is a small (but powerful) Node.js library to generate test data for mongoose using only the schema definition",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "author": "Genially (https://www.genial.ly)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genially/mongoose-mimic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/genially/mongoose-mimic/issues"
+  },
+  "keywords": [
+    "mimic",
+    "test",
+    "generate",
+    "generator",
+    "fake",
+    "dummy",
+    "mock",
+    "data",
+    "faker",
+    "mongoose",
+    "mongodb",
+    "document",
+    "model",
+    "schema"
+  ],
+  "homepage": "https://www.genial.ly",
   "license": "MIT",
   "dependencies": {
     "faker": "4.1.0",
@@ -16,13 +41,20 @@
     "uuid": "3.3.2"
   },
   "devDependencies": {
+    "husky": "3.0.0",
     "jest": "24.8.0",
-    "jest-extended": "0.11.1"
+    "jest-extended": "0.11.1",
+    "semantic-release": "15.13.18"
   },
   "jest": {
     "setupFilesAfterEnv": [
       "jest-extended"
     ],
     "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
