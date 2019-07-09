@@ -1,14 +1,16 @@
 # mongoose-mimic
 
-mongoose-mimic is a small (but powerful) Node.js library to generate test data for Mongoose using only the schema definition.
+mongoose-mimic is a simple (but powerful) Node.js library to generate test data for Mongoose using only the schema definition.
+
+![@genially/mongoose-mimic](demo.gif)
 
 ## Features
 
 - Generate random values depending on primitive data types (string, number, boolean, date...)
 - Generate random values that meet constraints (uppercase, lowercase, max...)
 - Generate custom values for specific fields
-- Generate custom values that match non-primitive data types for specific fields (email, phone, address...)
-- Ignore specific fields
+- Generate custom values that match non-primitive data types (email, phone, address...)
+- Ignore fields
 - Generate dates as object or string
 
 ## Installation
@@ -40,14 +42,14 @@ Generates a mimetic document from `model`
         }
 ```
 
-|       Option       | Type    | Usage                                                                                                                                                                                           |
-| :----------------: | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|       ignore       | Array   | It can contains string paths or RegExp of fields to ignore during generation                                                                                                                    |
-|    applyFilter     | Boolean | Apply lowercase, uppercase, and trim filters on generated object if defined in the path                                                                                                         |
-|     returnDate     | Boolean | Weather to return dates as Date or String                                                                                                                                                       |
-|       custom       | Object  | Special generator for specified fields                                                                                                                                                          |
-| custom.field.value | Any     | Specific value to generate                                                                                                                                                                      |
-| custom.field.type  | String  | Data type to generate, in the format: "type.subtype". Examples: "internet.email" or "address.city". See [Faker.js](https://github.com/marak/Faker.js/) methods to know all supported data types |
+|       Option       | Type    | Usage                                                                                                                                                                                                              |
+| :----------------: | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|       ignore       | Array   | It can contains string paths or RegExp of fields to ignore during generation                                                                                                                                       |
+|    applyFilter     | Boolean | Apply lowercase, uppercase, and trim filters on generated object if defined in the path                                                                                                                            |
+|     returnDate     | Boolean | Return dates as Date or String                                                                                                                                                                                     |
+|       custom       | Object  | Special generator for specific fields                                                                                                                                                                              |
+| custom.field.value | Any     | Predefined value to the given field                                                                                                                                                                                |
+| custom.field.type  | String  | Data type to generate to the given field, in the format: "type.subtype". Examples: "internet.email" or "address.city". See [Faker.js](https://github.com/marak/Faker.js/) methods to know all supported data types |
 
 ---
 
@@ -214,11 +216,11 @@ console.log(randomObject);
 
 To run the test cases use `npm test`
 
-## Related libraries
+## Related packages
 
 mongoose-mimic API is inspired by [mongoose-dummy](https://github.com/thedgmbh/mongoose-dummy), which provides a more limited capability to customize generated values.
 
-Other similar libraries to generate test data for Mongoose are:
+Other similar packages to generate test data for Mongoose are:
 
 - [mongoose-faker](https://github.com/tnsengimana/mongoose-faker)
 - [@lykmapipo/mongoose-faker](https://github.com/lykmapipo/mongoose-faker)
