@@ -37,7 +37,7 @@
   "dependencies": {
     "faker": "4.1.0",
     "flat": "4.1.0",
-    "mongoose": "5.6.1",
+    "mongoose": "5.7.8",
     "uuid": "3.3.2"
   },
   "devDependencies": {
