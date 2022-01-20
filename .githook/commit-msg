@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+#
+# This git hook will be executed on each commit to check the commit message.
+npx --no-install commitlint --edit $1

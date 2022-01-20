@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Generates the definition from the given mongoose schema path
  *
@@ -24,7 +22,7 @@
  *  ref: String <Referenced object if has reference>
  * }
  */
-const generateDefinition = path => {
+const generateDefinition = (path) => {
   const definition = {
     type: path.instance,
     required: !!path.isRequired,
@@ -35,11 +33,11 @@ const generateDefinition = path => {
     isPathDef: true,
     lowercase: !!path.options.lowercase,
     uppercase: !!path.options.uppercase,
-    trim: !!path.options.trim
+    trim: !!path.options.trim,
   };
 
   if (Array.isArray(path.validators)) {
-    path.validators.forEach(val => {
+    path.validators.forEach((val) => {
       if (val.type === 'max') {
         definition.max = val.max;
       }
@@ -77,11 +75,11 @@ const generateDefinition = path => {
  *   <path name>: <path definition>
  * }
  */
-const extractSchemaPaths = model => {
+const extractSchemaPaths = (model) => {
   const schemaPaths = {};
   const schema = model.schema || model;
 
-  schema.eachPath(pathName => {
+  schema.eachPath((pathName) => {
     const path = schema.path(pathName);
 
     if (path) {

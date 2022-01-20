@@ -1,9 +1,4 @@
-'use strict';
-
-const flat = require('flat');
-const unflatten = flat.unflatten;
-const mongoose = require('mongoose');
-const ObjectId = mongoose.Schema.ObjectId;
+const { unflatten } = require('flat');
 const createCustomGenerator = require('./createCustomGenerator');
 const createBasicGenerator = require('./generators');
 
@@ -20,10 +15,9 @@ const createBasicGenerator = require('./generators');
 const createCustomGenerators = (customOpts = {}) => {
   const customGenerators = {};
 
-  for (let field in customOpts) {
-    let customField = customOpts[field];
+  Object.entries(customOpts).forEach(([field, customField]) => {
     customGenerators[field] = createCustomGenerator(customField);
-  }
+  });
 
   return customGenerators;
 };
@@ -36,11 +30,10 @@ const createCustomGenerators = (customOpts = {}) => {
  * @returns {boolean}
  * true if the field must be ignored, false otherwise
  */
-const fieldMustBeIgnored = (field, ignoreOpts = []) =>
-  ignoreOpts.findIndex(element => {
-    if (typeof element === 'string') return field === element;
-    else return element.test(field);
-  }) !== -1;
+const fieldMustBeIgnored = (field, ignoreOpts = []) => ignoreOpts.findIndex((element) => {
+  if (typeof element === 'string') return field === element;
+  return element.test(field);
+}) !== -1;
 
 /**
  * Returns a random value from the given enum
@@ -49,7 +42,7 @@ const fieldMustBeIgnored = (field, ignoreOpts = []) =>
  * @returns {string}
  * an enum value
  */
-const selectRandomEnum = enumDefinition => {
+const selectRandomEnum = (enumDefinition) => {
   const randomIndex = Math.round(Math.random() * (enumDefinition.length - 1));
   return enumDefinition[randomIndex];
 };
@@ -91,41 +84,39 @@ const generateRandomArray = (field, arrayDefinition, opts) => {
  */
 const generateRandomDoc = (
   paths,
-  opts = { applyFilter: true, returnDate: true }
+  opts = { applyFilter: true, returnDate: true },
 ) => {
   const customGenerators = createCustomGenerators(opts.custom);
 
   const generatedDoc = {};
-  for (let field in paths) {
+  Object.entries(paths).forEach(([field, definition]) => {
     if (fieldMustBeIgnored(field, opts.ignore)) {
-      continue;
+      return;
     }
-
-    let definition = paths[field];
 
     if (definition.isEnum) {
       generatedDoc[field] = selectRandomEnum(definition.enum);
-      continue;
+      return;
     }
 
-    let type = definition.type.toLowerCase();
+    const type = definition.type.toLowerCase();
 
     if (type === 'array') {
       generatedDoc[field] = generateRandomArray(
         field,
         definition.arrayDefinition,
-        opts
+        opts,
       );
-      continue;
+      return;
     }
 
-    let generateCustomValue = customGenerators[field];
+    const generateCustomValue = customGenerators[field];
     if (generateCustomValue) {
       generatedDoc[field] = generateCustomValue();
-      continue;
+      return;
     }
 
-    let generateRandomValue = createBasicGenerator(definition);
+    const generateRandomValue = createBasicGenerator(definition);
 
     if (generateRandomValue) {
       generatedDoc[field] = generateRandomValue();
@@ -133,12 +124,10 @@ const generateRandomDoc = (
       if (type === 'date' && !opts.returnDate) {
         generatedDoc[field] = generatedDoc[field].toString();
       }
-
-      continue;
     }
-  }
+  });
 
-  return unflatten(generatedDoc); /* Unflatten dot notation */
+  return unflatten(generatedDoc);
 };
 
 module.exports = generateRandomDoc;

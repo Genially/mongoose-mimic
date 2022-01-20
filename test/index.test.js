@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const isObjectId = mongoose.Types.ObjectId.isValid;
 const mimic = require('..');
 const { validateEmail } = require('./utils');
@@ -14,53 +15,53 @@ describe('mongoose-mimic', () => {
         type: String,
         required: true,
         lowercase: true,
-        trim: true
+        trim: true,
       },
       email: {
-        type: String
+        type: String,
       },
       birth_date: {
-        type: Date
+        type: Date,
       },
       phones: {
-        type: [String]
+        type: [String],
       },
       gender: {
         type: String,
-        enum: genderValues
+        enum: genderValues,
       },
       data: {
         type: Object,
-        default: null
+        default: null,
       },
       results: [
         {
           score: Number,
-          course: Number
-        }
+          course: Number,
+        },
       ],
       is_student: {
-        type: Boolean
+        type: Boolean,
       },
       parent: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
       },
       detail: {
         main_info: String,
         some_info: String,
-        none_match: String
+        none_match: String,
       },
       created_at: {
         type: Date,
-        default: Date.now
-      }
+        default: Date.now,
+      },
     });
 
     model = mongoose.model('Student', schemaDefinition);
   });
 
   describe('mongoose model', () => {
-    it('should generate random document', done => {
+    it('should generate random document', (done) => {
       const randomObject = mimic(model);
 
       expect(randomObject).not.toBeUndefined();
@@ -89,10 +90,10 @@ describe('mongoose-mimic', () => {
   });
 
   describe('mongoose model with ignored fields', () => {
-    it('should generate random document without ignored fields', done => {
+    it('should generate random document without ignored fields', (done) => {
       const ignoredFields = ['_id', 'created_at', '__v', /detail.*_info/];
       const randomObject = mimic(model, {
-        ignore: ignoredFields
+        ignore: ignoredFields,
       });
 
       expect(randomObject.created_at).toBeUndefined();
@@ -106,7 +107,7 @@ describe('mongoose-mimic', () => {
   });
 
   describe('mongoose model with custom fields', () => {
-    it('should generate random document with custom fields', done => {
+    it('should generate random document with custom fields', (done) => {
       const randomObject = mimic(model, {
         custom: {
           name: { type: 'internet.email' },
@@ -115,11 +116,11 @@ describe('mongoose-mimic', () => {
           data: {
             value: {
               foo: 'foo',
-              bar: 'bar'
-            }
-          }
+              bar: 'bar',
+            },
+          },
         },
-        returnDate: true
+        returnDate: true,
       });
 
       expect(validateEmail(randomObject.name)).toBeTrue();
@@ -132,7 +133,7 @@ describe('mongoose-mimic', () => {
   });
 
   describe('mongoose model with returnData option to false', () => {
-    it('should generate random document with date as string', done => {
+    it('should generate random document with date as string', (done) => {
       const randomObject = mimic(model, { returnDate: false });
 
       expect(randomObject.birth_date).toBeString();
@@ -143,9 +144,9 @@ describe('mongoose-mimic', () => {
   });
 
   describe('mongoose model with custom array type', () => {
-    it('should generate random document with array whose content meets the array type', done => {
+    it('should generate random document with array whose content meets the array type', (done) => {
       const randomObject = mimic(model, {
-        custom: { phones: { type: 'internet.email' } }
+        custom: { phones: { type: 'internet.email' } },
       });
 
       expect(randomObject.phones).toBeArray();
