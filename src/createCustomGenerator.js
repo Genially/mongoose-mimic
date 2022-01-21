@@ -1,5 +1,3 @@
-'use strict';
-
 const faker = require('faker');
 
 /**
@@ -10,8 +8,7 @@ const faker = require('faker');
  * a function that generates the given custom value.
  * If the custom value is a function, then the function is directly returned
  */
-const createCustomGeneratorFromValue = value =>
-  typeof value === 'function' ? value : () => value;
+const createCustomGeneratorFromValue = (value) => (typeof value === 'function' ? value : () => value);
 
 /**
  * Creates a custom generator from a data type
@@ -20,7 +17,7 @@ const createCustomGeneratorFromValue = value =>
  * @returns {function}
  * a function that generates values matching the given data type
  */
-const createCustomGeneratorFromType = type => {
+const createCustomGeneratorFromType = (type) => {
   if (typeof type === 'string') {
     const types = type.split('.');
 
@@ -40,8 +37,8 @@ const createCustomGeneratorFromType = type => {
  * a function that generates values according to the given custom field configuration,
  * or undefined if the custom field configuration is invalid
  */
-const createCustomGenerator = customField => {
-  let customGenerator = undefined;
+const createCustomGenerator = (customField) => {
+  let customGenerator;
 
   if (customField.value) {
     customGenerator = createCustomGeneratorFromValue(customField.value);

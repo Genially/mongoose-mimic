@@ -3,7 +3,7 @@ const { validateEmail } = require('./utils');
 
 describe('createCustomGenerator', () => {
   describe('custom field with fixed value', () => {
-    it('should generate a custom generator that always returns the value', done => {
+    it('should generate a custom generator that always returns the value', (done) => {
       const customField = { value: 'Test' };
       const customGenerator = createCustomGenerator(customField);
 
@@ -16,7 +16,7 @@ describe('createCustomGenerator', () => {
   });
 
   describe('custom field with value as custom function', () => {
-    it('should generate a custom generator that is the custom function', done => {
+    it('should generate a custom generator that is the custom function', (done) => {
       const customField = { value: () => Math.random() };
       const customGenerator = createCustomGenerator(customField);
 
@@ -29,7 +29,7 @@ describe('createCustomGenerator', () => {
   });
 
   describe('custom field with type', () => {
-    it('should generate a custom generator that returns a value matching the type', done => {
+    it('should generate a custom generator that returns a value matching the type', (done) => {
       const customField = { type: 'internet.email' };
       const customGenerator = createCustomGenerator(customField);
       let value = customGenerator();
@@ -47,7 +47,7 @@ describe('createCustomGenerator', () => {
   });
 
   describe('custom field with fixed value and type', () => {
-    it('should generate custom generator that returns the value', done => {
+    it('should generate custom generator that returns the value', (done) => {
       const customField = { value: 'Test', type: 'internet.email' };
       const customGenerator = createCustomGenerator(customField);
       const value = customGenerator();
@@ -60,7 +60,7 @@ describe('createCustomGenerator', () => {
   });
 
   describe('custom field without value or value', () => {
-    it('should return undefined', done => {
+    it('should return undefined', (done) => {
       const customField = {};
       const customGenerator = createCustomGenerator(customField);
 
@@ -71,7 +71,7 @@ describe('createCustomGenerator', () => {
   });
 
   describe('custom field with invalid type', () => {
-    it('should throw error', done => {
+    it('should throw error', (done) => {
       const customField = { type: 'invalid.type' };
 
       expect(() => createCustomGenerator(customField)).toThrow(Error);

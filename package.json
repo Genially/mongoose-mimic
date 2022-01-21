@@ -2,13 +2,24 @@
   "name": "@genially/mongoose-mimic",
   "description": "mongoose-mimic is a small (but powerful) Node.js library to generate test data for Mongoose using only the schema definition",
   "private": false,
-  "version": "0.1.0",
+  "version": "2.0.0",
   "main": "src/index.js",
+  "files": [
+    "src"
+  ],
   "scripts": {
+    "lint": "eslint .",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "prepare": "git config --local core.hooksPath .githook || echo 'Can not set git hooks'",
+    "qa": "npm run lint && npm run test",
+    "prepublishOnly": "npm run qa"
   },
-  "author": "Genially (https://www.genial.ly)",
+  "author": {
+    "name": "Genially",
+    "email": "support@genial.ly",
+    "url": "http://genial.ly/"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/genially/mongoose-mimic.git"
@@ -32,32 +43,39 @@
     "model",
     "schema"
   ],
-  "homepage": "https://www.genial.ly",
+  "homepage": "https://github.com/genially/mongoose-mimic",
   "license": "MIT",
   "dependencies": {
-    "faker": "4.1.0",
-    "flat": "4.1.0",
-    "mongoose": "5.6.1",
-    "uuid": "3.3.2"
+    "faker": "^5.5.3",
+    "flat": "^5.0.2"
+  },
+  "peerDependencies": {
+    "mongoose": ">5.13.8 || >6.0.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.0.0",
-    "@commitlint/config-conventional": "8.0.0",
-    "husky": "3.0.0",
-    "jest": "24.8.0",
-    "jest-extended": "0.11.1",
-    "semantic-release": "15.13.18"
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.7.0",
+    "mongoose": "^6.0.3",
+    "jest": "^27.4.7",
+    "jest-extended": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=12"
   },
   "jest": {
+    "testEnvironment": "node",
     "setupFilesAfterEnv": [
-      "jest-extended"
+      "jest-extended/all"
     ],
-    "testEnvironment": "node"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "cobertura"
+    ]
   },
   "commitlint": {
     "extends": [

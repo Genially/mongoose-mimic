@@ -1,3 +1,10 @@
+const generateString = require('./generateString');
+const generateNumber = require('./generateNumber');
+const generateBoolean = require('./generateBoolean');
+const generateDate = require('./generateDate');
+const generateMixed = require('./generateMixed');
+const generateObjectId = require('./generateObjectId');
+
 /**
  * Creates a random data generator from the given field definition
  *
@@ -5,29 +12,31 @@
  * @returns {function}
  * a random data generator, or undefined if there are no generators that meet the field definition
  */
-module.exports = definition => {
-  let generator = undefined;
+module.exports = (definition) => {
+  let generator;
   const type = definition.type.toLowerCase();
 
   switch (type) {
     case 'string':
-      generator = () => require('./generateString')(definition);
+      generator = () => generateString(definition);
       break;
     case 'number':
-      generator = () => require('./generateNumber')(definition);
+      generator = () => generateNumber(definition);
       break;
     case 'boolean':
-      generator = () => require('./generateBoolean')(definition);
+      generator = () => generateBoolean(definition);
       break;
     case 'date':
-      generator = () => require('./generateDate')(definition);
+      generator = () => generateDate(definition);
       break;
     case 'mixed':
-      generator = () => require('./generateMixed')(definition);
+      generator = () => generateMixed(definition);
       break;
     case 'objectid':
-      generator = () => require('./generateObjectId')(definition);
+      generator = () => generateObjectId(definition);
       break;
+    default:
+      throw new Error(`Invalid definition type: ${type}`);
   }
 
   return generator;
