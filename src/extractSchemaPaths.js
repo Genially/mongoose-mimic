@@ -19,6 +19,7 @@
  *  min: Number <Minimum value if has minimum>,
  *  isArray: Boolean <if the path is an array>
  *  arrayDefinition: Object <Path Definition Object for array element>
+ *  embeddedDefinition: Object <Path Definition Object for embedded element>
  *  ref: String <Referenced object if has reference>
  * }
  */
@@ -45,6 +46,10 @@ const generateDefinition = (path) => {
         definition.min = val.min;
       }
     });
+  }
+
+  if (path.instance.toLowerCase() === 'embedded') {
+    definition.embeddedDefinition = extractSchemaPaths(path.schema);
   }
 
   if (path.instance.toLowerCase() === 'array') {
