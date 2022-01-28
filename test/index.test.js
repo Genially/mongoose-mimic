@@ -55,6 +55,16 @@ describe('mongoose-mimic', () => {
         type: Date,
         default: Date.now,
       },
+      organization: {
+        type: {
+          id: { type: String },
+          name: { type: String },
+          created_at: { type: Date },
+          phones: {
+            type: [Number],
+          },
+        },
+      },
     });
 
     model = mongoose.model('Student', schemaDefinition);
@@ -81,6 +91,10 @@ describe('mongoose-mimic', () => {
       expect(randomObject.phones).toBeArray();
       expect(randomObject.parent).toBeString();
       expect(isObjectId(randomObject.parent)).toBeTrue();
+      expect(randomObject.organization.id).toBeString();
+      expect(randomObject.organization.name).toBeString();
+      expect(randomObject.organization.created_at).toBeDate();
+      expect(randomObject.organization.phones[0]).toBeNumber();
       expect(randomObject._id).toBeString();
       expect(isObjectId(randomObject._id)).toBeTrue();
       expect(randomObject.__v).toBeNumber();

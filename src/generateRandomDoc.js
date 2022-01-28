@@ -101,6 +101,11 @@ const generateRandomDoc = (
 
     const type = definition.type.toLowerCase();
 
+    if (type === 'embedded') {
+      generatedDoc[field] = generateRandomDoc(definition.embeddedDefinition, opts);
+      return;
+    }
+
     if (type === 'array') {
       generatedDoc[field] = generateRandomArray(
         field,
