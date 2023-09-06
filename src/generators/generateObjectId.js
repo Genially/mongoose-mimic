@@ -3,4 +3,4 @@ const mongoose = require('mongoose');
 /**
  * Generates a random ObjectId
  */
-module.exports = () => mongoose.Types.ObjectId().toString();
+module.exports = () => new mongoose.Types.ObjectId().toString();
